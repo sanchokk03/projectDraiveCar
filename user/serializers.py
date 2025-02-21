@@ -12,7 +12,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'phone', 'password')
+        fields = ('username', 'email', 'password')
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -20,16 +20,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    email = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        user = authenticate(username=data['username'], password=data['password'])
+        user = authenticate(email=data['email'], password=data['password'])
         if user and user.is_active:
             data['user'] = user
             return data
         raise serializers.ValidationError(_("Неверные данные для входа."))
-
 
 class PasswordResetRequestSerializer(serializers.Serializer):
     email = serializers.EmailField()

@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'drf_spectacular_sidecar',
     'main',
     'user',
-    'chief'
+    'chief',
+    'administration',
+
 ]
 
 REST_FRAMEWORK = {
